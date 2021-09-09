@@ -35,14 +35,39 @@ const map = function (collection, iterator) {
   return result;
 };
 
-const filter = function (collection, callback) {};
+const filter = function (collection, callback) {
+  let result = []
+    collection.map(item => callback(item) ? result.push(item) : null)
+    return result;
+};
 //reject([1, 2, 3, 4, 5, 6], isEven);
-const reject = function (collection, callbackTest) {};
+const reject = function (collection, callbackTest) {
+  let result = []
+    collection.map(item => !callbackTest(item) ? result.push(item) : null)
+    return result;
+};
 
 //use indexOf to solve this
-const uniq = function (array) {};
+const uniq = function (array) {
+  return Array.from(new Set(array))
+};
 
-const reduce = function (collection, iterator, accumulator) {};
+const reduce = function (collection, iterator, accumulator) {
+  let result = accumulator !== undefined ? accumulator : null;
+  if(result !== null){
+    for(let i = 0; i< collection.length; i++){
+      result = iterator(result, collection[i])
+    }
+  }
+  else{
+    result = collection[0]
+    for(let i = 1; i< collection.length; i++){
+      result = iterator(result, collection[i])
+    }
+  }
+  
+  return result
+};
 
 module.exports = {
   filter,
